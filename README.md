@@ -2,9 +2,9 @@
    <img src="assets/logo.svg" align="center" width="100" height="100"/>
    <h1>Which Group What Project?</h1>
    <p>
-      <img src="https://img.shields.io/github/issues/shridharkhare/which-grp-what-proj" alt="Issues">
-      <img src="https://img.shields.io/github/forks/shridharkhare/which-grp-what-proj" alt="Forks">
-      <img src="https://img.shields.io/github/stars/shridharkhare/which-grp-what-proj" alt="Stars">
+      <img src="https://img.shields.io/github/issues/shridharkhare/which-group-what-project" alt="Issues">
+      <img src="https://img.shields.io/github/forks/shridharkhare/which-group-what-project" alt="Forks">
+      <img src="https://img.shields.io/github/stars/shridharkhare/which-group-what-project" alt="Stars">
    </p>
    <!-- <p>
    <a href="https://example.streamlit.app/">
