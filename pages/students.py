@@ -1,4 +1,6 @@
 from backend.students import get_students
+from frontend.utils.sidebar import set_sidebar
+import streamlit as st
 
 set_sidebar(
     user={
