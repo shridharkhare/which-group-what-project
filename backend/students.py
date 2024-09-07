@@ -15,5 +15,4 @@ def get_students():
         st.error(f"Failed to fetch students: {e}")
         return {}
 
-    st.write(data.data)
     return data.data

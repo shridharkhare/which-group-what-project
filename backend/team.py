@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-def get_student_status(roll, div="A") -> list:
+def get_student_status(roll, div):
     supabase = st.session_state.supabase
     if roll:
         try:
