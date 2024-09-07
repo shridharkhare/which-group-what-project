@@ -9,7 +9,7 @@ def login_button():
         "A new tab will open to authenticate with Google. You may need to allow pop-ups."
     )
     st.write("Please close this tab after logging in.")
-    login_button = st.button("Login with Google", type="primary")
+    login_button = st.button("Continue with Google", type="primary")
 
     if login_button:
         url = return_google_login_link()

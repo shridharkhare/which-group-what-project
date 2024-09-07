@@ -3,6 +3,7 @@ from frontend.utils.sidebar import set_sidebar
 from backend.team import get_student_status
 from backend.team import add_team
 
+st.set_page_config(page_title="Add Team")
 set_sidebar(st.session_state.user)
 
 st.title("Add Team")
@@ -103,5 +104,4 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    st.write("Add Team")
     read_data()
