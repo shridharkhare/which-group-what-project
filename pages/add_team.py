@@ -3,19 +3,13 @@ from frontend.utils.sidebar import set_sidebar
 from backend.team import get_student_status
 from backend.team import add_team
 
-set_sidebar(
-    user={
-        "full_name": "John Doe",
-        "avatar_url": "https://avatars.githubusercontent.com/u/832385?s=200&v=4",
-    }
-)
+set_sidebar(st.session_state.user)
 
 st.title("Add Team")
 
 
 def read_data():
 
-    # Select number of students
     st.subheader("Select the number of students in the team", divider=True)
     num_students = st.radio(
         "Number of students",
@@ -24,13 +18,12 @@ def read_data():
         label_visibility="collapsed",
     )
 
-    # Def team_div():
+    # def team_div():
     st.subheader("Select the division of the team", divider=True)
     div = st.radio(
         "Division", ["A", "B"], horizontal=True, label_visibility="collapsed"
     )
 
-    # Select roll_calls of students
     st.subheader(f"Enter roll-no of team members", divider=True)
     roll_calls = []
 
@@ -49,7 +42,6 @@ def read_data():
                 st.warning(f"Student is already part of a team")
         roll_calls.append(roll)  # Remember to clear this on update or clear button
 
-    # Get topic name and leader_id
     st.subheader("Enter the topic name")
     topic = st.text_input(
         label="Topic name", label_visibility="collapsed", placeholder="eg. Project 2232"
@@ -60,15 +52,14 @@ def read_data():
         "eg. 21", value=None, placeholder="eg. 21", min_value=1, format="%d"
     )
 
-    # Define data
     data = {
         "div": div,
         "leader_id": leader_id,
         "topic": topic,
         "roll_calls": roll_calls,
     }
+    # st.write(data)
 
-    # Submit and clear buttons
     if st.button("Submit"):
         submit_form(data, leader_id, roll_calls)
     else:
@@ -102,9 +93,15 @@ def submit_form(data, leader_id, roll_calls):
         st.warning("Leader should be part of the team")
         return
 
-    add_team(data)  # Adds team to the database
+    add_team(data)
     st.success("Team added successfully")
 
 
+def main():
+    read_data()
+
+
 if __name__ == "__main__":
+    # main()
+    st.write("Add Team")
     read_data()

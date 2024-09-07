@@ -1,4 +1,5 @@
 import streamlit as st
+from frontend.utils.logout_button import logout_button
 
 
 def set_sidebar(user: dict):
@@ -10,3 +11,6 @@ def set_sidebar(user: dict):
     st.sidebar.page_link("pages/students.py", label="👥 Students")
     st.sidebar.page_link("pages/add_team.py", label="➕ Add Team")
     st.sidebar.page_link("pages/update_team.py", label="🔄 Update Team")
+
+    with st.sidebar:
+        logout_button()
