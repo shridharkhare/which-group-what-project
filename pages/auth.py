@@ -1,9 +1,18 @@
 # Pip packages
 import streamlit as st
 import time
+import json
+
+# Local imports
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_url_fragment import get_fragment
 from frontend.utils.browser import get_session_from_fragment
+from frontend.cookies.cookies import create_cookie_manager
+
+# Create a cookie manager
+cookies = create_cookie_manager()
+if not cookies.ready():
+    st.stop()
 
 with st.spinner("Authenticating user..."):
     # Get the current fragment
@@ -23,5 +32,6 @@ with st.spinner("Authenticating user..."):
             switch_page("streamlit_app")
         else:
             if g_session is not None:
-                st.session_state.g_session = g_session
+                # Set the session in the cookie
+                cookies.set("g_session", json.dumps(g_session))
                 switch_page("streamlit_app")

@@ -7,6 +7,11 @@ def nav_to(url):
     st_js(js, key="nav_to")
 
 
+def reload_page():
+    js = "parent.window.location.reload();"
+    st_js(js, key="reload_page")
+
+
 # Function to get the Google session from the URL fragment
 def get_session_from_fragment(fragment):
     if fragment is not None and len(fragment) > 10:
