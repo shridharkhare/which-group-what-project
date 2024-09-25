@@ -9,6 +9,7 @@ from backend import create_supabase_client
 from frontend.cookies.cookies import create_cookie_manager
 
 cookies = create_cookie_manager()
+st.session_state.cookies = cookies
 if not cookies.ready():
     st.stop()
 
@@ -30,7 +31,7 @@ def main():
             else:
                 login_button()
     else:
-        set_sidebar(st.session_state.user, cookies)
+        set_sidebar()
         st.title("My Dashboard")
         st.subheader("Pending Requests")
         st.write("You currently have no pending requests.")

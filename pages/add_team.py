@@ -4,7 +4,7 @@ from backend.team import get_student_status
 from backend.team import add_team
 
 st.set_page_config(page_title="Add Team")
-set_sidebar(st.session_state.user)
+set_sidebar()
 
 st.title("Add Team")
 

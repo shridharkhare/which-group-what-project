@@ -11,6 +11,7 @@ from frontend.cookies.cookies import create_cookie_manager
 
 # Create a cookie manager
 cookies = create_cookie_manager()
+st.session_state.cookies = cookies
 if not cookies.ready():
     st.stop()
 

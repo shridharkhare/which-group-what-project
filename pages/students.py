@@ -3,7 +3,7 @@ from backend.students import get_students
 from frontend.utils.sidebar import set_sidebar
 from backend.students import get_students
 
-set_sidebar(st.session_state.user)
+set_sidebar()
 st.title("Students in PCE Comp Engg")
 
 

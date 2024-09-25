@@ -8,7 +8,12 @@ def create_virtualenv():
 
 
 def install_requirements():
-    pip_path = os.path.join(".venv", "Scripts", "pip") if os.name == "nt" else os.path.join(".venv", "bin", "pip")
+    pip_path = (
+        os.path.join(".venv", "Scripts", "pip")
+        if os.name == "nt"
+        else os.path.join(".venv", "bin", "pip")
+    )
+
     subprocess.check_call([pip_path, "install", "-r", "requirements.txt"])
 
 
@@ -26,7 +31,11 @@ def check_streamlit_file():
 
 
 def run_streamlit_app():
-    streamlit_path = os.path.join(".venv", "Scripts", "streamlit") if os.name == "nt" else os.path.join(".venv", "bin", "streamlit")
+    streamlit_path = (
+        os.path.join(".venv", "Scripts", "streamlit")
+        if os.name == "nt"
+        else os.path.join(".venv", "bin", "streamlit")
+    )
     subprocess.check_call([streamlit_path, "run", "streamlit_app.py"])
 
 
