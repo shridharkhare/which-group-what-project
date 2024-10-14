@@ -4,13 +4,17 @@ from frontend.utils.browser import reload_page
 
 
 def logout_button(cookies):
-    if not cookies.ready():
-        st.stop()
-
     if st.button("Logout"):
-        st.info("Logging out...")
-        cookies.set("g_session", "")
-        cookies.save()
-        time.sleep(0.5)
-        st.session_state.clear()
-        reload_page()
+        logout_action(cookies)
+
+
+def logout_action(cookies):
+    if not cookies.ready():
+        return
+
+    st.info("Logging out...")
+    cookies.set("g_session", "")
+    cookies.save()
+    time.sleep(0.5)
+    st.session_state.clear()
+    reload_page()

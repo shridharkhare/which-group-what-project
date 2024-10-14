@@ -1,10 +1,10 @@
 import streamlit as st
-from frontend.utils.sidebar import set_sidebar
+from frontend.sidebar.sidebar import set_sidebar
 
 set_sidebar()
 
 
-st.title("Update Team")
+st.title(":material/edit: Edit Team")
 
 
 def get_team_id(supabase, div, roll_no):

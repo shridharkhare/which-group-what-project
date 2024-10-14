@@ -1,0 +1,53 @@
+{
+    "teacher": [
+        {
+            "name": "Dashboard",
+            "icon": ":material/dashboard:",
+            "link": "pages/teach_dashboard.py"
+        },
+        {
+            "name": "Students",
+            "icon": ":material/people:",
+            "link": "pages/students.py"
+        }
+    ],
+    "student": [
+        {
+            "name": "Dashboard",
+            "icon": ":material/dashboard:",
+            "link": "pages/dashboard.py"
+        },
+        {
+            "name": "Students",
+            "icon": ":material/people:",
+            "link": "pages/students.py"
+        },
+        {
+            "name": "Add Team",
+            "icon": ":material/group_add:",
+            "link": "pages/add_team.py"
+        }
+    ],
+    "admin": [
+        {
+            "name": "Teacher Dashboard",
+            "icon": ":material/dashboard:",
+            "link": "pages/teach_dashboard.py"
+        },
+        {
+            "name": "Student Dashboard",
+            "icon": ":material/dashboard:",
+            "link": "pages/dashboard.py"
+        },
+        {
+            "name": "Students",
+            "icon": ":material/people:",
+            "link": "pages/students.py"
+        },
+        {
+            "name": "Add Team",
+            "icon": ":material/group_add:",
+            "link": "pages/add_team.py"
+        }
+    ]
+}

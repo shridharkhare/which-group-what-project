@@ -1,7 +1,8 @@
 import streamlit as st
+import json
+
 from frontend.utils.logout_button import logout_button
 from streamlit_extras.switch_page_button import switch_page
-from frontend.cookies.cookies import create_cookie_manager
 
 
 def set_sidebar():
@@ -16,10 +17,17 @@ def set_sidebar():
     st.sidebar.title("Which-Group-What-Project")
     st.sidebar.write(f"Welcome, {user['full_name']}!")
     st.sidebar.image(user["avatar_url"], width=100)
-    st.sidebar.page_link("streamlit_app.py", label="🏠 Dashboard")
-    st.sidebar.page_link("pages/students.py", label="👥 Students")
-    st.sidebar.page_link("pages/add_team.py", label="➕ Add Team")
-    st.sidebar.page_link("pages/update_team.py", label="🔄 Update Team")
+
+    # Open and read the JSON file
+    with open("frontend/sidebar/sidebar.json", "r") as file:
+        data = dict(json.load(file))
+
+        for key in data:
+            if user["user_type"] == key:
+                for item in data[key]:
+                    st.sidebar.page_link(
+                        label=item["name"], page=item["link"], icon=item["icon"]
+                    )
 
     with st.sidebar:
         logout_button(cookies)
