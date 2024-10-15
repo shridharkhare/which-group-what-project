@@ -39,10 +39,10 @@ def main():
                     email = dict(user)["email"]
 
                     email_role_map = {
-                        "@student.mes.ac.in": "student",
-                        "@mes.ac.in": "faculty",
-                        "kshreedhar01622@gmail.com": "admin",
-                        "thebrahmnicboy@gmail.com": "admin",
+                        st.secrets["STUDENT_SUFFIX"]: "student",
+                        st.secrets["TEACHER_SUFFIX"]: "teacher",
+                        st.secrets["ADMIN_1"]: "admin",
+                        st.secrets["ADMIN_2"]: "admin",
                     }
 
                     role_assigned = False

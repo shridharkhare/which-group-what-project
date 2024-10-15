@@ -92,3 +92,70 @@ def add_team(data):
         request_students(roll_calls, data)
     except Exception as e:
         print(e)
+
+
+def get_my_team_id(student_id):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("students")
+            .select("team_id")
+            .match({"student_id": student_id})
+            .execute()
+        )
+        return response.data[0]["team_id"]
+    except Exception as e:
+        st.error(f"Failed to fetch team id: {e}")
+        return
+
+
+def get_team_topic(team_id):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("teams").select("*").match({"team_id": team_id}).execute()
+        )
+        return response.data[0]
+    except Exception as e:
+        st.error(f"Failed to fetch team: {e}")
+        return
+
+
+def get_team_members(team_id):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("students")
+            .select("student_id", "name", "roll_no")
+            .match({"team_id": team_id})
+            .execute()
+        )
+        return response.data
+    except Exception as e:
+        st.error(f"Failed to fetch team members: {e}")
+        return
+
+
+def get_my_team(student_id):
+    team_id = get_my_team_id(student_id)
+    if not team_id:
+        return {}, []
+    team_details = get_team_topic(team_id)
+    team_members = get_team_members(team_id)
+    return team_details, team_members
+
+
+def send_team_for_approval(team_id):
+    supabase = st.session_state.supabase
+    try:
+        current_user = st.session_state.user["student_id"]
+        response = (
+            supabase.table("teams")
+            .update({"leader_okay": True})
+            .match({"team_id": team_id, "leader_id": current_user})
+            .execute()
+        )
+        return response
+    except Exception as e:
+        st.error(f"Failed to send team for approval: {e}")
+        return
