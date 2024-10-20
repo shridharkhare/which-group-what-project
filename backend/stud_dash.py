@@ -17,7 +17,6 @@ def get_requests(student_id):
             .is_("status", "null")
             .execute()
         )
-        print(requests)
         return requests.data
     except Exception as e:
         st.error(f"An error occurred: {e}")
@@ -34,7 +33,6 @@ def check_team(leader_id):
             .eq("leader_id", leader_id)
             .execute()
         )
-        print(team.data)
         if team.data:
             no_members = team.data[0]["no_mem"]
             if no_members < 4:

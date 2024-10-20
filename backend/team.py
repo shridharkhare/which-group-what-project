@@ -33,6 +33,8 @@ def get_max_team_id(div):
             for item in response.data:
                 if item["div"] == div:
                     return item["max"] + 1
+                else:
+                    return 1
 
     except Exception as e:
         print(e)
@@ -65,7 +67,6 @@ def request_students(roll_calls, data):
                 .execute()
             )
             print(response)
-            return response
         except Exception as e:
             print(e)
             return
@@ -80,8 +81,10 @@ def add_team(data):
     no_of_students = len(data["roll_calls"])
     data["no_mem"] = no_of_students
 
-    roll_calls = data["roll_calls"]
+    print(data["roll_calls"])
+    roll_calls = [roll_call for roll_call in data["roll_calls"]]
     del data["roll_calls"]
+    print(roll_calls)
 
     team_id = "T" + data["div"] + str(team_no)
     data["team_id"] = team_id
@@ -109,7 +112,7 @@ def get_my_team_id(student_id):
         return
 
 
-def get_team_topic(team_id):
+def get_team_details(team_id):
     supabase = st.session_state.supabase
     try:
         response = (
@@ -140,7 +143,13 @@ def get_my_team(student_id):
     team_id = get_my_team_id(student_id)
     if not team_id:
         return {}, []
-    team_details = get_team_topic(team_id)
+    team_details = get_team_details(team_id)
+    team_members = get_team_members(team_id)
+    return team_details, team_members
+
+
+def get_team_by_id(team_id):
+    team_details = get_team_details(team_id)
     team_members = get_team_members(team_id)
     return team_details, team_members
 
@@ -158,4 +167,61 @@ def send_team_for_approval(team_id):
         return response
     except Exception as e:
         st.error(f"Failed to send team for approval: {e}")
+        return
+
+
+def unlock_team(team_id):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("teams")
+            .update({"leader_okay": False, "is_approved": False})
+            .match({"team_id": team_id})
+            .execute()
+        )
+        return response
+    except Exception as e:
+        st.error(f"Failed to unlock team: {e}")
+        return
+
+
+def update_topic(team_id, topic):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("teams")
+            .update({"topic": topic})
+            .match({"team_id": team_id})
+            .execute()
+        )
+        return response
+    except Exception as e:
+        st.error(f"Failed to update topic: {e}")
+        return
+
+
+def remove_team(team_id):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("teams").delete().match({"team_id": team_id}).execute()
+        )
+        return response
+    except Exception as e:
+        st.error(f"Failed to remove team: {e}")
+        return
+
+
+def remove_member(member):
+    supabase = st.session_state.supabase
+    try:
+        response = (
+            supabase.table("students")
+            .update({"team_id": None})
+            .match({"student_id": member})
+            .execute()
+        )
+        return response
+    except Exception as e:
+        st.error(f"Failed to remove member: {e}")
         return
