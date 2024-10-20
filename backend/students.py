@@ -3,14 +3,14 @@ import streamlit as st
 supabase = st.session_state.supabase
 
 
-def get_all_students():
+def get_students(filter_team=False):
     try:
-        data = (
-            supabase.table("students")
-            .select("*")
-            .order("student_id", desc=False)
-            .execute()
-        )
+        query = supabase.table("students").select("*")
+
+        if filter_team:
+            query = query.is_("team_id", "null")
+
+        data = query.order("student_id", desc=False).execute()
         return data.data
     except Exception as e:
         st.error(f"Failed to fetch students: {e}")
@@ -29,34 +29,19 @@ def flatten_teams(data):
 @st.cache_data(show_spinner=True)
 def get_student_by_batch(div, batch):
     try:
-        # If batch is not a number, return all students from the division
-        if not batch.isdigit():
-            data = (
-                supabase.table("students")
-                .select(
-                    "div, roll_no, name, batch, teams!students_team_id_fkey(team_no)"
-                )
-                .match({"div": div})
-                .order("student_id", desc=False)
-                .execute()
-            )
-            flatten_teams(data)
+        query = (
+            supabase.table("students")
+            .select("div, roll_no, name, batch, teams!students_team_id_fkey(team_no)")
+            .match({"div": div})
+        )
 
+        if batch.isdigit():
+            query = query.match({"batch": batch}).order("roll_no", desc=False)
         else:
-            data = (
-                supabase.table("students")
-                .select(
-                    "div",
-                    "roll_no",
-                    "name",
-                    "batch",
-                    "teams!students_team_id_fkey(team_no)",
-                )
-                .match({"div": div, "batch": batch})
-                .order("roll_no", desc=False)
-                .execute()
-            )
-            flatten_teams(data)
+            query = query.order("student_id", desc=False)
+
+        data = query.execute()
+        flatten_teams(data)
     except Exception as e:
         st.error(f"Failed to fetch students: {e}")
         return {}

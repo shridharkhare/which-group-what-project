@@ -6,6 +6,8 @@ from streamlit_extras.switch_page_button import switch_page
 from frontend.sidebar.sidebar import set_sidebar
 from backend.stud_dash import get_requests, accept_request, reject_request
 from backend.team import get_my_team, send_team_for_approval, unlock_team
+from frontend.utils.utils import convert_timestamp
+
 
 st.set_page_config(
     page_title="Which-Group-What-Project",
@@ -69,11 +71,8 @@ def show_team_details(team_details, team_members):
 def show_approval_details(team_details):
     if team_details["is_approved"]:
         time = team_details["is_approved_time"]
-        converted_date = datetime.datetime.strptime(
-            time, "%Y-%m-%dT%H:%M:%S.%f%z"
-        ) + datetime.timedelta(hours=5, minutes=30)
 
-        converted_date = converted_date.strftime("%d %b %y, %I:%M %p")
+        converted_date = convert_timestamp(time)
 
         st.success(
             f"Your team was approved on : {converted_date}",
@@ -128,11 +127,7 @@ def dashboard_right():
                 expanded=False,
             ):
                 time = request["created_at"]
-                converted_date = datetime.datetime.strptime(
-                    time, "%Y-%m-%dT%H:%M:%S.%f%z"
-                ) + datetime.timedelta(hours=5, minutes=30)
-
-                converted_date = converted_date.strftime("%d %b %y, %I:%M %p")
+                converted_date = convert_timestamp(time)
 
                 st.write(f"Requested at: {converted_date}")
 

@@ -1,5 +1,5 @@
 import streamlit as st
-from backend.students import get_all_students, get_student_by_batch
+from backend.students import get_students, get_student_by_batch
 from frontend.sidebar.sidebar import set_sidebar
 
 st.set_page_config(page_title="Students", layout="wide", page_icon=":material/people:")
@@ -11,7 +11,13 @@ all, batch = st.tabs(["All Students", "Filter By Div/Batch"])
 
 
 def show_students():
-    students: dict = get_all_students()
+    students: dict = get_students()
+    # change keys in the students to title case
+    for student in students:
+        for key in list(student.keys()):
+            new_key = key.replace("_", " ").title()
+            student[new_key] = student.pop(key)
+
     st.dataframe(students, width=1000, height=500)
 
 
@@ -33,6 +39,12 @@ def show_students_by_batch():
         label_visibility="collapsed",
     )
     students: dict = get_student_by_batch(div, batch)
+    # change keys in the students to title case
+    for student in students:
+        for key in list(student.keys()):
+            new_key = key.replace("_", " ").title()
+            student[new_key] = student.pop(key)
+
     st.dataframe(students, width=1000, height=500)
 
 
