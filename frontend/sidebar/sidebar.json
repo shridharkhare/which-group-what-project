@@ -9,6 +9,11 @@
             "name": "Students",
             "icon": ":material/people:",
             "link": "pages/students.py"
+        },
+        {
+            "name": "Report",
+            "icon": ":material/assessment:",
+            "link": "pages/report.py"
         }
     ],
     "student": [
@@ -48,6 +53,11 @@
             "name": "Add Team",
             "icon": ":material/group_add:",
             "link": "pages/add_team.py"
+        },
+        {
+            "name": "Report",
+            "icon": ":material/assessment:",
+            "link": "pages/report.py"
         }
     ]
 }

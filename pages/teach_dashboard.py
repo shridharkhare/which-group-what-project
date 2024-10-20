@@ -1,7 +1,8 @@
 import streamlit as st
 
 from frontend.sidebar.sidebar import set_sidebar
-from backend.teach_dash import get_unapproved_teams, approve_team
+from backend.teach_dash import get_teams, approve_team
+from frontend.utils.utils import convert_timestamp
 
 
 def local_css(file_name):
@@ -11,7 +12,7 @@ def local_css(file_name):
 
 def main():
     st.subheader("Pending Approvals", anchor=None)
-    appr_reqs = get_unapproved_teams()
+    appr_reqs = get_teams(False)
 
     req_count = len(appr_reqs)
 
@@ -28,6 +29,11 @@ def main():
                 st.write(f"- **Topic:** {req['topic']}")
 
                 st.write(f"- **Number of members:** {req['no_mem']}")
+
+                req_time = req["leader_okay_time"]
+                converted_time = convert_timestamp(req_time)
+
+                st.write(f"- **Requested at:** {converted_time}")
 
                 for student in req["members"]:
                     st.write(f"*{student['student_id']}* - {student['name']}")
