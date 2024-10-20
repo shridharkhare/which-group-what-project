@@ -2,7 +2,11 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 import json
 
-st.set_page_config(page_title="Which-Group-What-Project")
+st.set_page_config(
+    page_title="Which-Group-What-Project",
+    layout="centered",
+    page_icon=":material/login:",
+)
 
 # Local imports
 from frontend.utils.login_button import login_button
@@ -23,7 +27,7 @@ if not cookies.ready():
 def main():
     # Checks if a user is present in the session state
     if "user" not in st.session_state:
-        st.title("Streamlit Supabase Auth")
+        st.title("Which-Group-What-Project")
         with st.spinner("Authenticating user..."):
 
             if "g_session" in cookies.keys() and str(cookies["g_session"]):
