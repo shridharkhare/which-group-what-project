@@ -42,11 +42,6 @@ def main():
                     approve_team(req["team_id"])
                     st.rerun()
 
-    st.divider()
-
-    st.subheader("Students not in a group", anchor=None)
-    st.write("You currently have no students not in a group.")
-
 
 # Page starts here
 st.set_page_config(
